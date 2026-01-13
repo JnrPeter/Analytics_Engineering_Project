@@ -1,0 +1,63 @@
+version: 2
+
+sources:
+  - name: northwind
+    description: Raw data lake layer - data loaded as-is from OLTP (MySQL)
+    database: agile-apex-483808-q0
+    schema: dl_northwind
+
+    tables:
+      # Master Data
+      - name: customer
+        description: Customer master data
+
+      - name: employees
+        description: Sales agents and staff
+
+      - name: suppliers
+        description: Product suppliers
+
+      - name: shippers
+        description: Shipping companies
+
+      - name: products
+        description: Product catalog
+
+      # Transactions
+      - name: orders
+        description: Sales order headers
+
+      - name: order_details
+        description: Sales order line items
+
+      - name: purchase_orders
+        description: Purchase order headers
+
+      - name: purchase_order_details
+        description: Purchase order line items
+
+      - name: inventory_transactions
+        description: Inventory stock movements
+
+      - name: invoices
+        description: Invoice records
+
+      # Lookup Tables
+      - name: orders_status
+        description: Order status lookup
+
+      - name: orders_tax_status
+        description: Order tax status lookup
+
+      - name: order_details_status
+        description: Order line item status lookup
+
+      - name: inventory_transaction_types
+        description: Inventory transaction type lookup
+
+      # Security / Access
+      - name: privileges
+        description: User privileges
+
+      - name: employee_privileges
+        description: Employee to privilege mapping
