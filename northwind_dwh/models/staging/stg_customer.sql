@@ -3,7 +3,7 @@ with source as (
 ),
 
 staged as (
-    select *
+    select *,current_datetime() AS insertion_timestamp
     from source
 )
 
