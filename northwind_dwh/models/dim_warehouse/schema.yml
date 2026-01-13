@@ -1,0 +1,119 @@
+version: 2
+
+models:
+  # ============ DIMENSIONS ============
+  - name: dim_customer
+    description: Customer dimension containing customer master data
+    columns:
+      - name: customer_id
+        description: Primary key
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_employees
+    description: Employee dimension containing sales agents and staff
+    columns:
+      - name: employee_id
+        description: Primary key
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_products
+    description: Product dimension containing product catalog with supplier info
+    columns:
+      - name: product_id
+        description: Primary key
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: Date dimension for time-based analysis
+    columns:
+      - name: date_id
+        description: Primary key (YYYYMMDD format)
+        data_tests:
+          - unique
+          - not_null
+
+  # ============ FACTS ============
+  - name: fact_sales
+    description: Sales fact table at order line level
+    columns:
+      - name: order_id
+        description: Order identifier
+        data_tests:
+          - not_null
+      - name: product_id
+        description: Foreign key to dim_products
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: customer_id
+        description: Foreign key to dim_customer
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+      - name: employee_id
+        description: Foreign key to dim_employees
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_employees')
+                field: employee_id
+
+  - name: fact_inventory
+    description: Inventory movements fact table
+    columns:
+      - name: inventory_id
+        description: Primary key
+        data_tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: Foreign key to dim_products
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+
+  - name: fact_purchase_order
+    description: Purchase orders fact table
+    columns:
+      - name: purchase_order_id
+        description: Purchase order identifier
+        data_tests:
+          - not_null
+      - name: product_id
+        description: Foreign key to dim_products
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: customer_id
+        description: Foreign key to dim_customer
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+      - name: employee_id
+        description: Foreign key to dim_employees
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_employees')
+                field: employee_id
