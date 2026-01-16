@@ -1,0 +1,6 @@
+venv/
+logs/
+target/
+dbt_packages/
+dbt_internal_packages/
+generate_staging.py
