@@ -40,3 +40,7 @@ models:
     dim_warehouse:
       +materialized: table
       +schema: dwh_northwind
+  
+    OBT(Reporting_layer):
+      +materialized: table
+      +schema: OBT
